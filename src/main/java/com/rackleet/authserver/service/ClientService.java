@@ -20,7 +20,10 @@ import com.rackleet.authserver.exception.OAuthException;
 import com.rackleet.authserver.repository.OAuthClientRepository;
 import com.rackleet.authserver.util.JsonUtils;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class ClientService {
     
     private static final Set<String> VALID_GRANT_TYPES = Set.of(
@@ -38,11 +41,6 @@ public class ClientService {
 
     private final OAuthClientRepository clientRepository;
     private final BCryptPasswordEncoder passwordEncoder;
-
-    public ClientService(OAuthClientRepository clientRepository, BCryptPasswordEncoder passwordEncoder) {
-            this.clientRepository = clientRepository;
-            this.passwordEncoder = passwordEncoder;
-    }
 
     public ClientRegistrationResponse registerClient(ClientRegistrationRequest request) {
         // Validate client type

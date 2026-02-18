@@ -1,5 +1,10 @@
 package com.rackleet.authserver.exception;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
 public enum OAuthError {
     INVALID_REQUEST("invalid_request"),
     INVALID_CLIENT("invalid_client"),
@@ -16,12 +21,4 @@ public enum OAuthError {
     INTERACTION_REQUIRED("interaction_required");
 
     private final String code;
-
-    OAuthError(String code) {
-        this.code = code;
-    }
-
-    public String getCode() {
-        return code;
-    }
 }

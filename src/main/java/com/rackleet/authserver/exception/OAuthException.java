@@ -2,6 +2,9 @@ package com.rackleet.authserver.exception;
 
 import org.springframework.http.HttpStatus;
 
+import lombok.Getter;
+
+@Getter
 public class OAuthException extends RuntimeException{
     
     private final OAuthError error;
@@ -13,17 +16,5 @@ public class OAuthException extends RuntimeException{
         this.error = error;
         this.errorDescription = errorDescription;
         this.httpStatus = httpStatus;
-    }
-
-    public OAuthError getError() {
-        return error;
-    }
-
-    public String getErrorDescription() {
-        return errorDescription;
-    }
-
-    public HttpStatus getHttpStatus() {
-        return httpStatus;
     }
 }
