@@ -1,0 +1,24 @@
+spring:
+    application:
+        name: authserver
+    datasource:
+        url: jdbc:postgresql://localhost:5432/authserver
+        username: authserver
+        password: authserver
+    jpa:
+        hibernate:
+            ddl-auto: validate  # IMPORTANT: validate, never update/create
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+        show-sql: true        # helpful during development
+    flyway:
+        enabled: true
+        locations: classpath:db/migration
+
+server:
+    port: 9000  # avoid 8080, your resource server will use that later
+
+    #Why `ddl-auto: validate`?** Because Flyway owns the schema. If you set this to `update`, Hibernate will silently modify your tables when entities change, and your Flyway migrations will drift out of sync. `validate` means the app won't even start if your entities don't match the schema — fail fast.
+
+    #Why port 9000?** Convention. Authorization servers and resource servers are separate applications. In Phase 7, you'll build a resource server on port 8080. Keeping them on different ports now avoids confusion later.
