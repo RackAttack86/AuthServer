@@ -9,7 +9,7 @@ import com.rackleet.authserver.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     
-    Optional<User> findByUserName(String username);
+    Optional<User> findByUsername(String username);
 
     boolean existsByUsername(String username);
 

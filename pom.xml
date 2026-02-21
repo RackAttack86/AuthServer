@@ -86,7 +86,7 @@
 			<artifactId>nimbus-jose-jwt</artifactId>
 			<version>9.47</version>
 		</dependency>
-		<dependency>S
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
