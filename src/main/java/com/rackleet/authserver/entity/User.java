@@ -41,7 +41,7 @@ public class User {
     @Column(name = "password_hash", nullable = false, length = 72)
     private String passwordHash;
 
-    @Column(name = "email_verified", nullable = false)
+    @Column(name = "isActive", nullable = false)
     private boolean active = true;
 
     @Column(name = "created_at", nullable = false, updatable = false)
