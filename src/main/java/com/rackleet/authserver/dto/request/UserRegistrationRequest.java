@@ -1,5 +1,7 @@
 package com.rackleet.authserver.dto.request;
 
+import com.rackleet.authserver.validation.ValidPassword;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -17,6 +19,6 @@ public class UserRegistrationRequest {
     private String email;
 
     @NotBlank(message = "password is required")
-    @Size(min = 12, message = "password must be at least 8 characters")
+    @ValidPassword
     private String password;
 }
