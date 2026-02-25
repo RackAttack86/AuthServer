@@ -35,6 +35,9 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(name = "email_verified", nullable = false)
+    private boolean emailVerified = false;
+
     @Column(name = "password_hash", nullable = false, length = 72)
     private String passwordHash;
 
