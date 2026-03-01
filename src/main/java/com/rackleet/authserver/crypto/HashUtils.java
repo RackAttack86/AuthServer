@@ -15,7 +15,7 @@ public class HashUtils {
      * authorization codes, refresh tokens, and other bearer credentials.
      * 32 bytes = 256 bits of entropy, Base64url-encoded.
      */
-    public static String generateRandomToke(){
+    public static String generateRandomToken(){
         byte[] bytes = new byte[32];
         SECURE_RANDOM.nextBytes(bytes);
         return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
