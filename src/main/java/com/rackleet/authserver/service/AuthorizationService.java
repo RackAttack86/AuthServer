@@ -32,9 +32,23 @@ public class AuthorizationService {
     private final OAuthClientRepository clientRepo;
     private final AuthorizationCodeRepository authCodeRepo;
 
-    // Validate Client and redirect URI
-    // If these fail, do NOT redirect - show error directly.
+    /**
+     * Validates the initial authorization request parameters.
+     * Called when the user first hits GET /oauth2/authorize.
+     * 
+     * Returns the validated client so the controller can use it
+     * for the login/consent pages.
+     *
+     * This method handles the two-tier error logic:
+     * - Bad client_id or redirect_uri → throws exception (controller shows error
+     * page)
+     * - Bad anything else → throws OAuthRedirectException (controller redirects
+     * with error)
+     */
     public OAuthClient validateAuthorizationRequest(AuthorizationRequest request) {
+        
+        // ── Tier 1: Validate client and redirect URI ──────────────
+        // If these fail, we MUST NOT redirect — show error directly.
         if (request.getClientId() == null || request.getClientId().isBlank()) {
             throw new OAuthException(OAuthError.INVALID_REQUEST, "client_id is required", HttpStatus.BAD_REQUEST);
         }
@@ -52,8 +66,9 @@ public class AuthorizationService {
             throw new OAuthException(OAuthError.INVALID_REQUEST, "redirect_uri does not match any registered URI", HttpStatus.BAD_REQUEST);
         }
 
-        // Validate remaining parameters
-        // redirect_uri is trusted, errors can be returned as redirects to the client.
+        // ── Tier 2: Validate remaining parameters ─────────────────
+        // From this point, the redirect_uri is trusted, so errors
+        // can be returned as redirects to the client.
         if (!"code".equals(request.getResponseType())) {
             throw buildRedirectException(OAuthError.UNSUPPORTED_RESPONSE_TYPE, "response_type must be 'code'", request);
         } 
@@ -126,6 +141,25 @@ public class AuthorizationService {
 
         // Return plaintext - goes in the redirect uri to the client
         return rawCode;
+    }
+
+    /**
+     * Builds the redirect URI with the authorization code and state
+     * Called after code generation to construct the final redirect
+     */
+    public String buildAuthorizationResponse(String redirectUri, String code, String state) {
+        StringBuilder response = new StringBuilder(redirectUri);
+
+        // Append code as query parameter
+        response.append(redirectUri.contains("?") ? "&" : "?");
+        response.append("code=").append(code);
+
+        // Return state unchanged - client validates this for CSRF protection
+        if (state != null && !state.isBlank()) {
+            response.append("&state=").append(state);
+        }
+
+        return response.toString();
     }
 
     private OAuthRedirectException buildRedirectException(
