@@ -45,7 +45,7 @@ public class TokenService {
 
             // 2. Look up the code by its hash
             String codeHash = HashUtils.sha256(request.getCode());
-            AuthorizationCode authCode = authCodeRepo.findByCodeHash(codeHash).orElseThrow(() -> OAuthException(OAuthError.INVALID_GRANT, "Invalid authorization code", HttpStatus.BAD_REQUEST));
+            AuthorizationCode authCode = authCodeRepo.findByCodeHash(codeHash).orElseThrow(() -> new OAuthException(OAuthError.INVALID_GRANT, "Invalid authorization code", HttpStatus.BAD_REQUEST));
 
             // 3. Check if the code was already used - this is a security critical check
             // If a used code is presented again, it means either the code was stolen
@@ -133,7 +133,7 @@ public class TokenService {
                 byte[] hash = digest.digest(codeVerifier.getBytes(StandardCharsets.US_ASCII));
                 return Base64.getUrlEncoder().withoutPadding().encodeToString(hash);
             } catch (NoSuchAlgorithmException e) {
-                throw new RunTimeException("SHA-256 no available", e);
+                throw new RuntimeException("SHA-256 no available", e);
             }
         }
 
