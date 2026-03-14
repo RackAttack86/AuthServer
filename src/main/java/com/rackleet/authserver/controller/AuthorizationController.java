@@ -76,10 +76,10 @@ public class AuthorizationController {
             @RequestParam(name = "response_type") String responseType,
             @RequestParam(name = "client_id") String clientId,
             @RequestParam(name = "redirect_uri") String redirectUri,
-            @RequestParam(name = "scope") String scope,
-            @RequestParam(name = "state") String state,
-            @RequestParam(name = "code_challenge") String codeChallenge,
-            @RequestParam(name = "code_challenge_method") String codeChallengeMethod,
+            @RequestParam(name = "scope", required = false) String scope,
+            @RequestParam(name = "state", required = false) String state,
+            @RequestParam(name = "code_challenge", required = false) String codeChallenge,
+            @RequestParam(name = "code_challenge_method", required = false) String codeChallengeMethod,
             // The user's credentials from the login form
             @RequestParam(name = "username") String username,
             @RequestParam(name = "password") String password) {
@@ -131,6 +131,7 @@ public class AuthorizationController {
         AuthorizationRequest authRequest = new AuthorizationRequest();
         authRequest.setResponseType(responseType);
         authRequest.setClientId(clientId);
+        authRequest.setRedirectUri(redirectUri);
         authRequest.setScope(scope);
         authRequest.setState(state);
         authRequest.setCodeChallenge(codeChallenge);
