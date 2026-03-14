@@ -147,8 +147,8 @@ public class TokenService {
             AuthorizationCode authCode, OAuthClient client) {
 
                 // Stub tokens for now
-                String accessToken = "stub_access_token" + HashUtils.generateRandomToken();
-                String refreshToken = "stub_refresh_token" + HashUtils.generateRandomToken();
+                String accessToken = "stub_access_token_" + HashUtils.generateRandomToken();
+                String refreshToken = "stub_refresh_token_" + HashUtils.generateRandomToken();
 
                 Map<String, Object> response = new LinkedHashMap<>();
                 response.put("access_token", accessToken);
