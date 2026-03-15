@@ -23,4 +23,7 @@ public class TokenRequest {
     private String code;
     private String redirectUri;
     private String codeVerifier; // PKCE
+
+    private String refreshToken;
+    private String scope;
 }

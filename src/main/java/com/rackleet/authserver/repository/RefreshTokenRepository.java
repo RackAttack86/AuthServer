@@ -20,7 +20,7 @@ public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long
     // Revoke entire family in one query
     // More efficient than loading each entity and saving individually.
     @Modifying
-    @Query("UPDATE RefreshToken rt SET rt.revoked = true WHERE rt.parentTokenHash = :parentHash AND rt.revoked = false")
+    @Query("UPDATE RefreshToken rt SET rt.isRevoked = true WHERE rt.parentTokenHash = :parentHash AND rt.isRevoked = false")
     int revokeTokenFamily(@Param("parentHash") String parentTokenHash);
 
     // Find all active tokens for user/client pair

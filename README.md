@@ -139,3 +139,6 @@ src/main/java/com/rackleet/authserver/
 ## License
 
 See [LICENSE](LICENSE) for details.
+
+
+The rule is simple: @Data on DTOs, individual annotations on entities. No exceptions, no "this entity is simple enough." It's a habit that prevents future bugs
