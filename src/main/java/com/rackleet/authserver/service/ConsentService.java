@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class ContentService {
+public class ConsentService {
     
     private final UserConsentRepository consentRepo;
     private final ScopeRepository scopeRepo;
@@ -95,7 +95,7 @@ public class ContentService {
     }
 
     // Returns the default scope to grant when the client doesnt request a specific scope
-    public String getDefaultScope() {
+    public String getDefaultScopes() {
         List<Scope> defaults = scopeRepo.findByIsDefaultTrue();
         if (defaults.isEmpty()) {
             return null;
