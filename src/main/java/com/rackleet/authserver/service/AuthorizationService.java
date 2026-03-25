@@ -1,4 +1,3 @@
-// service/AuthorizationService.java
 package com.rackleet.authserver.service;
 
 import com.rackleet.authserver.crypto.HashUtils;
@@ -9,13 +8,11 @@ import com.rackleet.authserver.exception.OAuthError;
 import com.rackleet.authserver.exception.OAuthException;
 import com.rackleet.authserver.exception.OAuthRedirectException;
 import com.rackleet.authserver.repository.AuthorizationCodeRepository;
-import com.rackleet.authserver.service.ConsentService;
 import com.rackleet.authserver.repository.OAuthClientRepository;
 import com.rackleet.authserver.util.JsonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.web.server.authentication.ConcurrentSessionControlServerAuthenticationSuccessHandler;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
